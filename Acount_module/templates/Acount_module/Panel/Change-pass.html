@@ -1,0 +1,102 @@
+{% extends 'shared/index.html' %}
+{% block link %}
+
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <main>
+            <div class="py-5 text-center">
+                <h2>Account</h2>
+            </div>
+            <div class="row g-5">
+                <div class="col-md-5 col-lg-4 order-md-last">
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-sm col-md-7">
+                            <div>
+                                <h6 class="my-0">
+                                    <a href="{% url 'user-panel' %}" class="text-info">Profile</a>
+                                </h6>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm col-md-7">
+                            <div>
+                                <h6 class="my-0">
+                                    <a href="{% url 'change-pass-page' %}" class="text-warning">Change Password</a>
+                                </h6>
+                            </div>
+                        </li>
+                        <li
+                                class="list-group-item d-flex justify-content-between lh-sm col-md-7"
+                        >
+                            <div>
+                                <h6 class="my-0">
+                                    <a href="{% url 'cart-detail-page' %}" class="text-success">Cart Detail</a>
+                                </h6>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm col-md-7">
+                            <div>
+                                <h6 class="my-0">
+                                    <a href="{% url 'fav-list' %}" class="text-muted">Favourite Books</a>
+                                </h6>
+                            </div>
+                        </li>
+                        <li
+                                class="list-group-item d-flex justify-content-between lh-sm col-md-7"
+                        >
+                            <div>
+                                <h6 class="my-0">
+                                    <a href="{% url 'logout' %}" class="text-danger">Logout</a>
+                                </h6>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-7 col-lg-8">
+                    <h4 class="mb-3 text-warning">Change Password</h4>
+                    <form class="needs-validation" novalidate>
+                        <div class="row g-3">
+
+                            <div class="col-12">
+                                <label for="password" class="form-label">Current Password</label>
+                                <div class="input-group has-validation">
+                                    <input
+                                            type="password"
+                                            class="form-control"
+                                            required
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="password" class="form-label"
+                                >New Password</label
+                                >
+                                <input
+                                        type="password"
+                                        class="form-control"
+                                />
+                            </div>
+
+                            <div class="col-12">
+                                <label for="password" class="form-label"
+                                >Repeat New Password</label
+                                >
+                                <input
+                                        type="password"
+                                        class="form-control"
+                                />
+                            </div>
+
+                        </div>
+                        <br>
+
+                        <button class="w-100 btn btn-success btn-lg" type="submit">
+                            Change
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

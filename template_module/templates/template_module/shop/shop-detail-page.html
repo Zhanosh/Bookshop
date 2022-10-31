@@ -1,0 +1,62 @@
+{% extends 'shared/index.html' %}
+{% load thumbnail %}
+{% load render_partial %}
+{% block title %}
+    Book Detail
+{% endblock %}
+
+{% block body %}
+
+    <section class="bg-sand padding-large">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-5 align-center">
+                    <a href="#" class="product-image">
+                        {% thumbnail book.image '300x495' as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}"
+                                 height="{{ im.height }}">
+                        {% endthumbnail %}
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-detail">
+                        <h1>{{ book.name }}</h1>
+                        <h3>Author: {{ book.author }}</h3>
+                        <div class="item-price">
+                            {% if book.offer %}
+                                <span class="text-success">Price:</span>
+                                <span class="prev-price"> ${{ book.price }}</span>$
+                                {{ book.offer_price }}
+                            {% else %}
+                                <h5 class="text-success">Price:</h5> ${{ book.price }}
+                            {% endif %}
+                        </div>
+
+                        <h4 class="text-info fs-3 text">Description:</h4><h4
+                            class="text-dark">{{ book.description }}</h4>
+                        <br>
+                        <h5>Publisher:{{ book.publisher }}</h5>
+                        <h5>Publish Date:{{ book.year_of_publication }}</h5>
+
+                        <h6 class="text-muted">Categories: {% for subject in book.subject.all %}
+                            {{ subject.subject_name }}
+                        {% endfor %}
+                        </h6>
+                        <div class=" row">
+                            {% if request.user.is_authenticated %}
+                                <div type="submit" name="add-to-cart" value="27545" class="btn btn-success col col-md-3"
+                                     onclick="addProductToOrder({{ book.id }})">Add
+                                    to cart
+                                </div>
+                                <div class="btn btn-warning divbtns col-md-2 align-right" style="margin-left: 3px;"><i
+                                        class="fa fa-star"></i></div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

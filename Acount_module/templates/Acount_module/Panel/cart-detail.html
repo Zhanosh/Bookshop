@@ -1,0 +1,96 @@
+{% extends 'shared/index.html' %}
+{% block title %}
+
+{% endblock %}
+{% block body %}
+    <div class="container" id="order-detail-content">
+        <main>
+            <div class="py-5 text-center">
+                <h2>Account</h2>
+            </div>
+            <div class="row g-5">
+                <div class="col-md-7 order-md-last align-left">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-success">Your cart</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                        {% for detail in order.orderdetail_set.all %}
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <img src="{{ detail.product.image.url }}" style="height: 50px">
+                                </div>
+                                <div>
+                                    <h6 class="my-0 text-info">{{ detail.product.name }}</h6>
+                                    <small class="text-muted">Count: {{ detail.count }}</small>
+                                </div>
+                                <span class="text-success">${{ detail.get_total_price }}</span>
+                                <div>
+                                    <a class="btn btn-success" id="click1" onclick="changeOrderDetailCount({{ detail.id }},'increase')">+</a>
+                                    <a class="btn btn-danger ml-0 click" onclick="changeOrderDetailCount({{ detail.id }},'decrease')">-</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total (USD)</span>
+                            <strong style="margin-right: 16vw;" class="text-success">${{ sum }}</strong>
+                        </li>
+                    </ul>
+
+                    <form class="card p-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Promo code">
+                            <div type="submit" class="btn btn-secondary">Redeem</div>
+                        </div>
+                        <hr class="my-4"/>
+                        <button class="w-100 btn btn-success btn-lg" type="submit">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-5 order-md-last">
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-sm col-md-7">
+                            <div>
+                                <h6 class="my-0">
+                                    <a href="{% url 'user-panel' %}" class="text-info">Profile</a>
+                                </h6>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm col-md-7">
+                            <div>
+                                <h6 class="my-0">
+                                    <a href="{% url 'change-pass-page' %}" class="text-warning">Change Password</a>
+                                </h6>
+                            </div>
+                        </li>
+                        <li
+                                class="list-group-item d-flex justify-content-between lh-sm col-md-7"
+                        >
+                            <div>
+                                <h6 class="my-0">
+                                    <a href="{% url 'cart-detail-page' %}" class="text-success">Cart Detail</a>
+                                </h6>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm col-md-7">
+                            <div>
+                                <h6 class="my-0">
+                                    <a href="{% url 'fav-list' %}" class="text-muted">Favourite Books</a>
+                                </h6>
+                            </div>
+                        </li>
+                        <li
+                                class="list-group-item d-flex justify-content-between lh-sm col-md-7"
+                        >
+                            <div>
+                                <h6 class="my-0">
+                                    <a href="{% url 'logout' %}" class="text-danger">Logout</a>
+                                </h6>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

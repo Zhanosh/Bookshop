@@ -1,0 +1,277 @@
+{% extends 'shared/index.html' %}
+{% load thumbnail %}
+{% block title %}
+    Home
+{% endblock %}
+<!-- <div id="entire-wrapper"> -->
+{% block body %}
+
+    <section id="billboard" class="pattern-overlay">
+        <button class="prev slick-arrow">
+            <i class="icon icon-arrow-left"></i>
+        </button>
+
+        <div class="main-slider">
+            {% for newbook in new_book_slider %}
+                {% for book in newbook %}
+                    <div class="slider-item">
+                        <div class="banner-content" data-aos="fade-up">
+                            <h2 class="banner-title">{{ book.name }}</h2>
+                            <p>{{ book.description | truncatechars_html:200 }}</p>
+                            <div class="btn-wrap">
+                                <a href="{% url 'shop-detail-page' slug=book.slug %}"
+                                   class="btn-outline-accent btn-accent-arrow">Read More<i
+                                        class="icon icon-ns-arrow-right"></i></a>
+                            </div>
+                            <br>
+                        </div><!--banner-content-->
+                        <img src="{{ book.image.url }}" alt="banner" class="banner-image" style="border-radius: 10px">
+                    </div><!--slider-item-->
+                {% endfor %}
+            {% endfor %}
+        </div><!--slider-->
+        <button class="next slick-arrow">
+            <i class="icon icon-arrow-right"></i>
+        </button>
+    </section>
+
+    <section id="featured-books" class="bookshelf">
+        <div class="container">
+            <div class="row">
+                <div class="inner-content">
+
+                    <div class="section-header align-center">
+                        <div class="title">
+                            <span>Some quality items</span>
+                        </div>
+                        <h2 class="section-title">Featured Books</h2>
+                    </div>
+
+                    <div class="product-list" data-aos="fade-up">
+                        <div class="product-grid">
+                            {% for books in lastest_product %}
+                                {% for book in books %}
+                                    <figure class="product-style">
+                                        <a>
+                                            {% thumbnail book.image '700x919' crop="center" as im %}
+                                                <img src="{{ im.url }}" width="{{ im.width }}"
+                                                     height="{{ im.height }}" alt="Books"
+                                            {% endthumbnail %}
+                                                     class="product-item align-center imgproduct">
+                                        </a>
+                                        <figcaption>
+                                            <h3>{{ book.name }}</h3>
+                                            <p>{{ book.author }}</p>
+                                            <div class="item-price">
+                                                {% if book.offer %}
+                                                    <span class="prev-price">$ {{ book.price }}</span>$
+                                                    {{ book.offer_price }}
+                                                {% else %}
+                                                    $ {{ book.price }}
+                                                {% endif %}
+                                            </div>
+                                            <br>
+
+                                            <div class="">
+                                                <a href="{% url 'shop-detail-page' slug=book.slug %}"
+                                                   class="btn btn-default text-dark divbtns">Detail
+                                                </a>
+                                                {% if request.user.is_authenticated %}
+                                                    <a class="btn btn-success"
+                                                       onclick="addProductToOrder({{ book.id }})"><i
+                                                            class="fa fa-shopping-cart"></i></a>
+
+                                                    <a class="btn btn-warning divbtns"
+                                                       href="{% url 'add-to-fav' id=book.id %}"><i
+                                                            class="fa fa-star"></i></a>
+                                                {% endif %}
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                {% endfor %}
+                            {% endfor %}
+                        </div><!--ft-books-slider-->
+                    </div><!--grid-->
+
+                    <div class="btn-wrap align-right">
+                        <a href="{% url 'shop-page' %}" class="btn-accent-arrow">View all Books <i
+                                class="icon icon-ns-arrow-right"></i></a>
+                    </div>
+
+                </div><!--inner-content-->
+            </div>
+        </div>
+    </section>
+
+    <section id="best-selling" class="leaf-pattern-overlay">
+        <div class="corner-pattern-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="inner-content">
+                    <div class="product-element">
+                        <div class="grid">
+                            <figure class="products-thumb">
+                                <img src="/static/images/single-image.jpg" alt="book" class="single-image">
+                            </figure>
+                            <div class="product-entry">
+                                <h2 class="section-title divider">Best Selling Book</h2>
+
+                                <div class="products-content">
+                                    <div class="author-name">By Timbur Hood</div>
+                                    <h3 class="item-title">Birds gonna be happy</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet,
+                                        libero
+                                        ipsum enim pharetra hac.</p>
+                                    <div class="item-price">$ 45.00</div>
+                                    <div class="btn-wrap">
+                                        <a href="#" class="btn-accent-arrow">shop it now <i
+                                                class="icon icon-ns-arrow-right"></i></a>
+                                    </div>
+                                </div><!--description-->
+
+                            </div>
+                        </div><!--grid-->
+                    </div>
+                </div><!--inner-content-->
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="quotation" class="align-center">
+        <div class="inner-content">
+            <h2 class="section-title divider">Quote of the day</h2>
+            <blockquote data-aos="fade-up">
+                <q>The more that you read, the more things you will know. The more that you learn, the more places
+                    youll
+                    go.</q>
+                <div class="author-name">Dr. Seuss</div>
+            </blockquote>
+        </div>
+    </section>
+
+    <section id="special-offer" class="bookshelf">
+
+        <div class="section-header align-center">
+            <div class="title">
+                <span>Grab your opportunity</span>
+            </div>
+            <h2 class="section-title">Books with offer</h2>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="inner-content">
+                    <div class="product-list" data-aos="fade-up">
+                        <div class="grid product-grid">
+                            {% for books in offer_book %}
+                                {% for book in books %}
+                                    <figure class="product-style">
+                                        <a>
+                                            {% thumbnail book.image '400x600' crop="center" as im %}
+                                                <img src="{{ im.url }}" width="{{ im.width }}"
+                                                     height="{{ im.height }}" alt="Books"
+                                            {% endthumbnail %}
+                                                     class="product-item align-center imgproduct">
+                                        </a>
+                                        <figcaption>
+                                            <h3>{{ book.name }}</h3>
+                                            <p>{{ book.author }}</p>
+                                            <div class="item-price">
+                                                <span class="prev-price">$ {{ book.price }}</span>$ {{ book.offer_price }}
+                                            </div>
+                                            <br>
+                                            <div class="">
+                                                <a href="{% url 'shop-detail-page' slug=book.slug %}"
+                                                   class="btn btn-default text-dark divbtns">Detail
+                                                </a>
+                                                {% if request.user.is_authenticated %}
+                                                    <a class="btn btn-success"
+                                                       onclick="addProductToOrder({{ book.id }})"><i
+                                                            class="fa fa-shopping-cart"></i></a>
+
+                                                    <a class="btn btn-warning divbtns"
+                                                       href="{% url 'add-to-fav' id=book.id %}"><i
+                                                            class="fa fa-star"></i></a>
+                                                {% endif %}
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="subscribe">
+        <div class="container">
+            <div class="row">
+                <div class="inner-content">
+                    <div class="grid">
+                        <div class="title-element">
+                            <h2 class="section-title divider">Subscribe to our newsletter</h2>
+                        </div>
+                        <div class="subscribe-content" data-aos="fade-up">
+                            <p>Sed eu feugiat amet, libero ipsum enim pharetra hac dolor sit amet, consectetur. Elit
+                                adipiscing enim pharetra hac.</p>
+                            <form id="form">
+                                <input type="text" name="email" placeholder="Enter your email addresss here">
+                                <button class="btn-subscribe">
+                                    <span>send</span>
+                                    <i class="icon icon-send"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="latest-blog">
+        <div class="container">
+            <div class="row">
+                <div class="inner-content">
+
+                    <div class="section-header align-center">
+                        <div class="title">
+                            <span>Read our articles</span>
+                        </div>
+                        <h2 class="section-title">Latest Articles</h2>
+                    </div>
+
+                    <div class="grid">
+                        {% for articles in articles_list %}
+                            {% for article in articles %}
+                                <article class="column" data-aos="fade-up">
+
+                                    <figure>
+                                        <a href="{% url 'article-detail' slug=article.slug %}" class="image-hvr-effect">
+                                            <img src="{{ article.image.url }}" alt="post" class="post-image">
+                                        </a>
+                                    </figure>
+
+                                    <div class="post-item">
+                                        <div class="meta-date">{{ article.create_date }}</div>
+                                        <h3>
+                                            <a href="{% url 'article-detail' slug=article.slug %}">{{ article.title }}</a>
+                                        </h3>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div class="btn-wrap align-center">
+                        <a href="{% url 'article-page' %}" class="btn-outline-accent btn-accent-arrow" tabindex="0">Read
+                            All Articles<i
+                                    class="icon icon-ns-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

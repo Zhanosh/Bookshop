@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@sweetalert2/theme-dark": "^5.0.12",
+    "@sweetalert2/themes": "^5.0.12",
+    "bootbox": "^5.5.3"
+  }
+}

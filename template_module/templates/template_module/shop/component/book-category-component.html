@@ -1,0 +1,7 @@
+<ul class="tabs ula">
+    <li class="tab menu-item"><a style="text-decoration: none" href="{% url 'shop-page' %}">All</a></li>
+    {% for category in categories %}
+        <li class="tab menu-item"><a href="{% url 'book-category'  cat=category.url %}" style="text-decoration: none">{{ category.title }}</a>
+        </li>
+    {% endfor %}
+</ul>

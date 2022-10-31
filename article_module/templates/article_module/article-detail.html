@@ -1,0 +1,38 @@
+{% extends 'shared/index.html' %}
+{% block title %}
+
+{% endblock %}
+{% block body %}
+    <article class="column aos-init aos-animate" data-aos="fade-up">
+
+        <figure>
+            <div class="">
+                <img src="{{ article.image.url }}" alt="post" class="align-center" style="width: 60vw; height: 60vh">
+            </div>
+        </figure>
+
+        <div class="post-item align-center col col-md-offset-9">
+            <h1 class="meta-date">{{ article.title }}</h1>
+            <h5>{{ article.description }}</h5>
+
+            <div class="links-element">
+                <div class="meta-date">{{ article.create_date }}</div>
+                <br>
+                <div class="social-links">
+                    <ul>
+                        <li>
+                            <a href="#"><i class="icon icon-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon icon-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon icon-behance-square"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div><!--links-element-->
+
+        </div>
+    </article>
+{% endblock %}

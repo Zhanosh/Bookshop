@@ -1,0 +1,59 @@
+{% extends 'shared/index.html' %}
+{% load thumbnail %}
+{% block title %}
+
+{% endblock %}
+{% block body %}
+    <section id="popular-books" class="bookshelf">
+        <div class="container">
+            <div class="row">
+                <div class="inner-content">
+                    <div class="section-header align-center">
+                        <h2 class="section-title">Favourite Books</h2>
+                    </div>
+                    <div class="container align-center">
+                        <div class="row">
+                            <div class="products-grid grid">
+                                {% for book in books %}
+                                    <figure class="product-style col col-md-3">
+                                        <a>
+                                            {% thumbnail book.image '700x919' crop="center" as im %}
+                                                <img src="{{ im.url }}" width="{{ im.width }}"
+                                                     height="{{ im.height }}" alt="Books"
+                                            {% endthumbnail %}
+                                                     class="product-item align-center imgproduct">
+                                        </a>
+                                        <figcaption>
+                                            <h3>{{ book.name }}</h3>
+                                            <p>{{ book.author }}</p>
+                                            <div class="item-price p2">
+                                                {% if book.offer %}
+                                                    <span class="prev-price">$ {{ book.price }}</span>$
+                                                    {{ book.offer_price }}
+                                                {% else %}
+                                                    $ {{ book.price }}
+                                                {% endif %}
+                                            </div>
+                                            <br>
+
+                                            <div class="">
+                                                <a href="{% url 'shop-detail-page' slug=book.slug %}"
+                                                   class="btn btn-default text-dark divbtns">Detail
+                                                </a>
+                                                <a class="btn btn-success" onclick="addProductToOrder({{ book.id }})"><i
+                                                        class="fa fa-shopping-cart"></i></a>
+                                                <a class="btn btn-warning divbtns bg-danger border border-black"
+                                                   href="{% url 'add-to-fav' id=book.id %}"><i
+                                                        class="fa fa-star"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--inner-tabs-->
+    </section>
+{% endblock %}

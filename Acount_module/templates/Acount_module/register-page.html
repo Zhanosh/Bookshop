@@ -1,0 +1,50 @@
+{% extends 'shared/index.html' %}
+{% block link %}
+    <link rel="stylesheet" type="text/css" href="/static/css/login-page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+{% endblock %}
+{% block title %}
+    Sign up
+{% endblock %}
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="row full-height justify-content-center">
+                <div class="col-12 text-center align-self-center py-5">
+                    <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                        <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrapper">
+                                <form action="{% url 'register-page' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="card-front">
+                                        <div class="center-wrap">
+                                            <div class="section text-center">
+                                                <h4 class="mb-4 pb-3">Sign Up</h4>
+                                                <div class="form-group">
+                                                    {{ register_form.email.errors }}
+                                                    {{ register_form.email }}
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    {{ register_form.password.errors }}
+                                                    {{ register_form.password }}
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    {{ register_form.repeat_password.errors }}
+                                                    {{ register_form.repeat_password }}
+                                                </div>
+                                                <button type="submit" class="btn1 mt-4">Create</button>
+                                                <p class="mb-0 mt-4 text-center"><a href="{% url 'login-page' %}"
+                                                                                    class="link">Login Page</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

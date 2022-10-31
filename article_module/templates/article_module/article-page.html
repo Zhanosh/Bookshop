@@ -1,0 +1,44 @@
+{% extends 'shared/index.html' %}
+{% block body %}
+    <section class="hero-section jarallax">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="page-title">Our Blog</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="latest-blog" class="scrollspy-section padding-large">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="post-grid">
+                        <div class="row">
+                            {% for article in articles %}
+                                <div class="col-md-4">
+                                    <article class="post-item">
+                                        <figure>
+                                            <a href="{% url 'article-detail' slug=article.slug %}" class="image-hvr-effect">
+                                                <img src="{{ article.image.url }}" alt="post" class="post-image">
+                                            </a>
+                                        </figure>
+
+                                        <div class="post-content">
+
+                                            <h2 class="post-title"><a href="{% url 'article-detail' slug=article.slug %}">{{ article.title }}</a></h2>
+                                            <p>{{ article.description | truncatechars_html:50 }}</p>
+                                            <div class="meta-date">{{ article.create_date}}</div>
+                                        </div>
+                                    </article>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

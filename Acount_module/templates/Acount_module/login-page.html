@@ -1,0 +1,52 @@
+{% extends 'shared/index.html' %}
+{% block title %}
+    Login
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" type="text/css" href="/static/css/login-page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+{% endblock %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="row full-height justify-content-center">
+                <div class="col-12 text-center align-self-center py-5">
+                    <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                        <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrapper">
+                                <form action="{% url 'login-page' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="card-front">
+                                        <div class="center-wrap">
+                                            <div class="section text-center">
+                                                <h4 class="mb-4 pb-3">Login</h4>
+                                                <div class="form-group">
+                                                    {{ login_form.email.errors }}
+                                                    {{ login_form.email }}
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    {{ login_form.password.errors }}
+                                                    {{ login_form.password }}
+                                                </div>
+                                                <button type="submit" class="btn1 mt-4">Login</button>
+                                                <p class="mb-0 mt-4 text-center"><a href="{% url 'forgot-pass-page' %}"
+                                                                                    class="link">Forgot your
+                                                    password?</a></p>
+                                                <p class="mb-0 mt-4 text-center"><a href="{% url 'register-page' %}"
+                                                                                    class="link">Create a new
+                                                    account</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

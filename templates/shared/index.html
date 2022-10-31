@@ -1,0 +1,235 @@
+{% load render_partial %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block link %}{% endblock %}
+    {% render_partial 'template_module.views.header_partial' %}
+</head>
+<body>
+<div id="header-wrap">
+    <div class="top-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="social-links">
+                        <ul>
+                            <li>
+                                <a href="#"><i class="icon icon-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icon icon-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icon icon-youtube-play"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icon icon-behance-square"></i></a>
+                            </li>
+                        </ul>
+                    </div><!--social-links-->
+                </div>
+                <div class="col-md-6 ">
+                    <div class="right-element">
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'user-panel' %}" class="user-account for-buy"><i class="icon icon-user"></i><span>Account</span></a>
+                            <a href="{% url 'cart-detail-page' %}" class="cart for-buy"><i
+                                    class="icon icon-clipboard"></i><span>Cart:({{ sum }} $)</span></a>
+                            <a href="{% url 'fav-list' %}" class="user-account for-buy"><i
+                                    class="fa fa-star"></i><span>Favourites Book</span></a>
+                        {% else %}
+                            <a href="{% url 'login-page' %}" class="user-account for-buy"><i class="icon icon-user"></i><span>Login</span></a>
+                        {% endif %}
+                        <div class="action-menu">
+                            <div class="search-bar">
+                                <a href="#" class="search-button search-toggle" data-selector="#header-wrap">
+                                    <i class="icon icon-search "></i>
+                                </a>
+                                <form role="search" method="POST" class="search-box " action="{% url 'search-page' %}">
+                                    {% csrf_token %}
+                                    <input class="search-field text search-input" placeholder="Search Book Name"
+                                           type="search"
+                                           name="searched">
+                                </form>
+                            </div>
+                        </div>
+
+                    </div><!--top-right-->
+                </div>
+
+            </div>
+        </div>
+    </div><!--top-content-->
+
+    <header id="header">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="main-logo">
+                        <a href="{% url 'index-page' %}"><img src="/static/images/main-logo.png" alt="logo"></a>
+                    </div>
+
+                </div>
+
+                <div class="col-md-10">
+
+                    <nav id="navbar ">
+                        <div class="main-menu stellarnav align-center divli">
+                            <ul class="menu-list ula">
+                                <li class="menu-item {% if request.resolver_match.url_name == 'index-page' %}
+                                active
+                                {% endif %} "><a href="{% url 'index-page' %}" data-effect="Home" class="nav-link hover"
+                                >Home</a></li>
+                                <li class="menu-item {% if request.resolver_match.url_name == 'about-page' %}
+                                active
+                                {% endif %} "><a href="{% url 'about-page' %}" class="nav-link"
+                                                 data-effect="About">About</a>
+                                </li>
+                                <li class="menu-item {% if request.resolver_match.url_name == 'shop-page' %}
+                                active
+                                {% endif %} "><a href="{% url 'shop-page' %}" class="nav-link"
+                                                 data-effect="Shop">Shop</a></li>
+                                <li class="menu-item {% if request.resolver_match.url_name == 'article-page' %}
+                                active
+                                {% endif %}"><a href="{% url 'article-page' %}" class="nav-link"
+                                                data-effect="Articles">Articles</a>
+                                </li>
+                                <li class="menu-item {% if request.resolver_match.url_name == 'contact-us-page' %}
+                                active
+                                {% endif %}"><a href="{% url 'contact-us-page' %}" class="nav-link"
+                                                data-effect="Contact">Contact</a></li>
+                            </ul>
+
+                            <div class="hamburger">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+
+                        </div>
+                    </nav>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+</div><!--header-wrap-->
+{% block body %}{% endblock %}
+<hr>
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="footer-item">
+                    <div class="company-brand">
+                        <img src="/static/images/main-logo.png" alt="logo" class="footer-logo">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus
+                            nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper
+                            erat ac in suspendisse iaculis.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-2">
+
+                <div class="footer-menu">
+                    <h5>About Us</h5>
+                    <ul class="menu-list">
+                        <li class="menu-item">
+                            <a href="{% url 'article-page' %}">articles </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#">careers</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#">service terms</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#">donate</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-2">
+
+                <div class="footer-menu">
+                    <h5>Discover</h5>
+                    <ul class="menu-list">
+                        <li class="menu-item">
+                            <a href="{% url 'index-page' %}">Home</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{% url 'shop-page' %}">Books</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#">Authors</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#">Subjects</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#">Advanced Search</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-2">
+
+                <div class="footer-menu">
+                    <h5>My account</h5>
+                    <ul class="menu-list">
+                        <li class="menu-item">
+                            <a href="{% url 'login-page' %}">Sign In</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{% url 'cart-detail-page' %}">View Cart</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#">My Wishtlist</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#">Track My Order</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-2">
+
+                <div class="footer-menu">
+                    <h5>Help</h5>
+                    <ul class="menu-list">
+                        <li class="menu-item">
+                            <a href="#">Help center</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#">Report a problem</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#">Suggesting edits</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{% url 'contact-us-page' %}">Contact us</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- / row -->
+
+    </div>
+</footer>
+{% render_partial 'template_module.views.footer_partial' %}
+</body>
+</html>	
